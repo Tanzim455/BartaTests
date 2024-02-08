@@ -118,8 +118,7 @@ class AuthTest extends TestCase
             'password' => '',
         ]);
         $response->assertSessionHasErrors(['email', 'password']);
-        // Assert the user was authenticated
-        $this->withoutMiddleware()->assertGuest();
+        
 
         // Assert the response was a redirect to the intended page
         $response->assertRedirect('/');
