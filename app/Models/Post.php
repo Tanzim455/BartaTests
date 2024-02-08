@@ -6,11 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-
-class Post extends Model 
+class Post extends Model
 {
     use HasFactory;
-    
 
     protected $guarded = [];
 
@@ -60,10 +58,9 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
-    
+
     public function likedPosts()
     {
         return $this->belongsToMany(Post::class, 'user_post_likes', 'post_id', 'user_id');
     }
-   
 }

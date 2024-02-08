@@ -7,7 +7,6 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class PostsController extends Controller
@@ -51,22 +50,19 @@ class PostsController extends Controller
             'description' => $request->input('description'),
             'user_id' => $userId,
             'uuid' => $uuId,
-            'image'=>$request->input('image')
+            'image' => $request->input('image'),
         ]
 
         );
-        if($request->hasFile('image')){
-             $fileName = time().'.'.$request->image->extension();
-             
-         $request->image->storeAs('public/images', $fileName);
-         $post->image = $fileName;
-         
+        if ($request->hasFile('image')) {
+            $fileName = time().'.'.$request->image->extension();
+
+            $request->image->storeAs('public/images', $fileName);
+            $post->image = $fileName;
 
         }
 
         $post->save();
-        
-        
 
         return redirect()
             ->back()
@@ -129,21 +125,21 @@ class PostsController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($uuid)
-{
-    $post = Post::where('uuid', $uuid)->firstOrFail();
-    $image = $post->image;
+    {
+        $post = Post::where('uuid', $uuid)->firstOrFail();
+        $image = $post->image;
 
-    // Delete the image using the Storage facade
-    if (Storage::disk('public')->exists('images/' . $image)) {
-        Storage::disk('public')->delete('images/' . $image);
+        // Delete the image using the Storage facade
+        if (Storage::disk('public')->exists('images/'.$image)) {
+            Storage::disk('public')->delete('images/'.$image);
+        }
+
+        // Delete the post
+        $post->delete();
+
+        // Redirect back with a success message
+        return redirect()
+            ->back()
+            ->with('success', 'Your post and image have been deleted');
     }
-
-    // Delete the post
-    $post->delete();
-
-    // Redirect back with a success message
-    return redirect()
-        ->back()
-        ->with('success', 'Your post and image have been deleted');
-}
 }

@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+
 class Comment extends Model
 {
     use HasFactory;
-     protected $guarded=[];
+
+    protected $guarded = [];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -23,13 +26,14 @@ class Comment extends Model
                     ->where('posts.user_id', $userId);
             });
     }
+
     protected static function booted()
     {
-        
+
         static::creating(function ($comment) {
             $comment->user_id = auth()->user()?->id;
-            $comment->uuid=Str::uuid()->toString();
-           
+            $comment->uuid = Str::uuid()->toString();
+
         });
     }
 }

@@ -8,17 +8,18 @@ use Livewire\Component;
 
 class ArticleCreated extends Component
 {
-    #[Validate('required')] 
+    #[Validate('required')]
     public $title = '';
-    public function save(){
-        $this->validate(); 
- 
-        
+
+    public function save()
+    {
+        $this->validate();
+
         Article::create(
             $this->only(['title'])
         );
     }
-    
+
     public function render()
     {
         return view('livewire.article-created');

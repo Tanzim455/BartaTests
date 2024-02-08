@@ -5,9 +5,6 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
-
-use App\Livewire\ArticleCreated;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    
+
     return view('login');
 })->middleware('guest');
 Route::get('/home', [PostsController::class, 'index'])->name('home')->middleware('auth');
@@ -34,7 +31,7 @@ Route::middleware('auth')->group(function () {
 Route::resource('posts', PostsController::class);
 Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
 Route::get('/searchuser', [SearchController::class, 'search'])->name('searchuser')->middleware('auth');
-Route::get('notifications',[NotificationController::class,'index'])->name('notifications');
+Route::get('notifications', [NotificationController::class, 'index'])->name('notifications');
 
 require __DIR__.'/auth.php';
 

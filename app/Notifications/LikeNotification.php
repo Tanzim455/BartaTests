@@ -16,7 +16,7 @@ class LikeNotification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public Post $post,public User $user)
+    public function __construct(public Post $post, public User $user)
     {
         //
     }
@@ -28,7 +28,7 @@ class LikeNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['database','mail'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -37,9 +37,9 @@ class LikeNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line("Your '{$this->post->description}' post has been liked by '{$this->user->name}'")
-                    ->action('Your post', url('/posts/'.$this->post->uuid))
-                    ->line('Thank you for using our application!');
+            ->line("Your '{$this->post->description}' post has been liked by '{$this->user->name}'")
+            ->action('Your post', url('/posts/'.$this->post->uuid))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -52,7 +52,7 @@ class LikeNotification extends Notification implements ShouldQueue
         return [
             //
             'data' => "Your '{$this->post->description}' post has been liked by '{$this->user->name}'",
-         'url'=>$this->post->uuid,
+            'url' => $this->post->uuid,
         ];
     }
 }

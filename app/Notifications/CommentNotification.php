@@ -16,7 +16,7 @@ class CommentNotification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public Post $post,public Comment $comment)
+    public function __construct(public Post $post, public Comment $comment)
     {
         //
     }
@@ -48,10 +48,10 @@ class CommentNotification extends Notification implements ShouldQueue
      * @return array<string, mixed>
      */
     public function toArray(object $notifiable): array
-{
-    return [
-        'data' => "Your '{$this->post->description}' has been commented by '{$this->comment->user->name}'",
-         'url'=>$this->post->uuid,
-    ];
-}
+    {
+        return [
+            'data' => "Your '{$this->post->description}' has been commented by '{$this->comment->user->name}'",
+            'url' => $this->post->uuid,
+        ];
+    }
 }
