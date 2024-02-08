@@ -35,7 +35,7 @@ Route::resource('posts', PostsController::class);
 Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
 Route::get('/searchuser', [SearchController::class, 'search'])->name('searchuser')->middleware('auth');
 Route::get('notifications',[NotificationController::class,'index'])->name('notifications');
-Route::get('article',ArticleCreated::class);
+
 require __DIR__.'/auth.php';
 
 Route::get('/{user}', [ProfileController::class, 'profile'])->where('user', '[A-Za-z0-9_]+')->name('profile');
